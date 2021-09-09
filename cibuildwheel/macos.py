@@ -599,8 +599,11 @@ def build(options: BuildOptions) -> None:
                     shutil.rmtree(venv_dir)
 
             # we're all done here; move it to output (overwrite existing)
+            call(["ls", "-l", options.output_dir])
+            call(["ls", "-l", str(repaired_wheel)])
             shutil.move(str(repaired_wheel), options.output_dir)
-            log.warning(f"This is the path {str(repaired_wheel)} ({options.output_dir}")
+            call(["ls", "-l", options.output_dir])
+            log.warning(f"This is the path {str(repaired_wheel)} ({options.output_dir})")
             log.build_end()
     except subprocess.CalledProcessError as error:
         log.step_end_with_error(
